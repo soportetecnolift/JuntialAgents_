@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Tokens de color (RGB) ── */
+:root {
+  --harbor: 22 50 79; --harbor-600: 30 66 104; --harbor-300: 143 166 191;
+  --mist: 243 245 248; --surface: 255 255 255; --ink: 29 39 51; --ink-soft: 85 97 111; --line: 223 228 234;
+  --tide: 14 124 134; --tide-dark: 10 95 103; --tide-tint: 227 242 243;
+  --signal: 201 138 11; --signal-tint: 251 241 220; --flare: 200 66 59; --flare-tint: 251 231 229;
+  --nav-h: 4.25rem; color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --harbor: 12 26 41; --harbor-600: 31 56 84; --harbor-300: 140 165 190;
+  --mist: 13 18 25; --surface: 22 29 38; --ink: 228 234 240; --ink-soft: 148 161 176; --line: 42 52 64;
+  --tide: 20 140 150; --tide-dark: 120 210 216; --tide-tint: 17 50 56;
+  --signal: 230 178 70; --signal-tint: 56 44 18; --flare: 236 112 102; --flare-tint: 64 29 27;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --harbor: 12 26 41; --harbor-600: 31 56 84; --harbor-300: 140 165 190;
+    --mist: 13 18 25; --surface: 22 29 38; --ink: 228 234 240; --ink-soft: 148 161 176; --line: 42 52 64;
+    --tide: 20 140 150; --tide-dark: 120 210 216; --tide-tint: 17 50 56;
+    --signal: 230 178 70; --signal-tint: 56 44 18; --flare: 236 112 102; --flare-tint: 64 29 27;
+    color-scheme: dark;
+  }
+}
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; text-size-adjust: 100%; }
+  body { @apply bg-mist text-ink font-sans text-base; overscroll-behavior-y: none; }
+  h1 { @apply text-xl font-extrabold tracking-tight md:text-2xl; }
+  h2 { @apply text-lg font-bold; }
+  :focus-visible { outline: 2px solid rgb(var(--tide)); outline-offset: 2px; }
+  ::selection { background: rgb(var(--tide) / .25); }
+}
+@layer components {
+  /* 16px en móvil: evita el zoom automático de iOS al enfocar campos */
+  .field { @apply w-full rounded-lg border border-line bg-surface px-3 py-2.5 text-[16px] text-ink outline-none transition placeholder:text-ink-soft/70 focus:border-tide focus:ring-2 focus:ring-tide/20 md:py-2 md:text-sm; }
+  .label { @apply mb-1 block text-sm font-semibold text-ink; }
+  .hint { @apply mt-1 text-xs text-ink-soft; }
+  .panel { @apply rounded-xl border border-line bg-surface; }
+  .glass { @apply border border-white/40 bg-surface/75 shadow-[0_8px_32px_rgb(0_0_0/0.14)] backdrop-blur-xl backdrop-saturate-150; }
+  :root[data-theme="dark"] .glass { @apply border-white/10; }
+  .scroll-x { @apply flex snap-x overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
